@@ -16,14 +16,11 @@ void	ft_print(char *s, int fd)
 {
 	int	i;
 
+	i = 0;
 	if (s == NULL || fd < 0)
 		return ;
-	i = 0;
 	while (s[i])
-	{
-		write(fd, &s[i], 1);
-		i++;
-	}
+		write(fd, &s[i++], 1);
 }
 
 long	ft_atol(const char *s)
