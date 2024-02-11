@@ -6,7 +6,7 @@
 /*   By: ayman_marzouk <ayman_marzouk@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 10:34:54 by amarzouk          #+#    #+#             */
-/*   Updated: 2024/02/11 18:45:07 by ayman_marzo      ###   ########.fr       */
+/*   Updated: 2024/02/11 20:14:45 by ayman_marzo      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,10 @@ void	philo_data(t_program *program, t_params *params)
 		philos[i].meal_lock = &program->meal_lock;
 		philos[i].write_lock = &program->write_lock;
 		philos[i].l_fork = &program->forks[i];
-		philos[i].r_fork = &program->forks[(i + 1) % params->philo_count];
+		if (i == 0)
+			philos[i].r_fork = &program->forks[params->philo_count - 1];
+		else
+		philos[i].r_fork = &program->forks[(i - 1)];
 		i++;
 	}
 }
