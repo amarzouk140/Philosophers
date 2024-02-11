@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarzouk <amarzouk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayman_marzouk <ayman_marzouk@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 10:34:54 by amarzouk          #+#    #+#             */
-/*   Updated: 2024/02/07 14:40:47 by amarzouk         ###   ########.fr       */
+/*   Updated: 2024/02/11 18:45:07 by ayman_marzo      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,33 +48,6 @@ void	philo_data(t_program *program, t_params *params)
 		philos[i].write_lock = &program->write_lock;
 		philos[i].l_fork = &program->forks[i];
 		philos[i].r_fork = &program->forks[(i + 1) % params->philo_count];
-		i++;
-	}
-}
-
-void	create_thread(t_philo *philos, t_program *data)
-{
-	int	i;
-
-	i = 0;
-	philos->start_time = get_current();
-	while (i < philos->params->philo_count)
-	{
-		if (pthread_create(&philos[i].thread, NULL, &routine, &philos[i]))
-			destroy(data);
-		i++;
-	}
-}
-
-void	join_thread(t_philo *philos, t_program *data)
-{
-	int	i;
-
-	i = 0;
-	while (i < philos->params->philo_count)
-	{
-		if (pthread_join(philos[i].thread, NULL))
-			destroy(data);
 		i++;
 	}
 }
