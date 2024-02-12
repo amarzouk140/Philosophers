@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayman_marzouk <ayman_marzouk@student.42    +#+  +:+       +#+        */
+/*   By: amarzouk <amarzouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 10:34:54 by amarzouk          #+#    #+#             */
-/*   Updated: 2024/02/11 20:14:45 by ayman_marzo      ###   ########.fr       */
+/*   Updated: 2024/02/12 09:35:22 by amarzouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	philo_data(t_program *program, t_params *params)
 		if (i == 0)
 			philos[i].r_fork = &program->forks[params->philo_count - 1];
 		else
-		philos[i].r_fork = &program->forks[(i - 1)];
+			philos[i].r_fork = &program->forks[(i - 1)];
 		i++;
 	}
 }
