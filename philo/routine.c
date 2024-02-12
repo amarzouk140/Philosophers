@@ -6,7 +6,7 @@
 /*   By: amarzouk <amarzouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 13:40:24 by amarzouk          #+#    #+#             */
-/*   Updated: 2024/02/12 17:05:33 by amarzouk         ###   ########.fr       */
+/*   Updated: 2024/02/12 18:10:43 by amarzouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,6 @@ int	dead(t_philo *philo)
 
 void	is_eating(t_philo *philo)
 {
-	if (philo->params->philo_count == 1)
-	{
-		printf("test");
-		pthread_mutex_lock(philo->l_fork);
-		print_message(philo, "has taken a fork 🍴");
-		ft_usleep(philo->params->tte, philo);
-		pthread_mutex_unlock(philo->l_fork);
-		return ;
-	}
 	if (philo->id % 2)
 	{
 		pthread_mutex_lock(philo->r_fork);
@@ -58,13 +49,21 @@ void	is_eating(t_philo *philo)
 	pthread_mutex_unlock(philo->meal_lock);
 }
 
+void	one_philo(t_philo *philo)
+{
+	pthread_mutex_lock(philo->l_fork);
+	print_message(philo, "has taken a fork 🍴");
+	ft_usleep(philo->params->tte, philo);
+	pthread_mutex_unlock(philo->l_fork);
+}
+
 void	*routine(void *arg)
 {
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
 	if (philo->params->philo_count == 1)
-		return (NULL);
+		return (one_philo(philo), NULL);
 	if (philo->id % 2 == 0)
 		ft_usleep(philo->params->tte, philo);
 	while (!dead(philo))
