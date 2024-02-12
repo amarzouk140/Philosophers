@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayman_marzouk <ayman_marzouk@student.42    +#+  +:+       +#+        */
+/*   By: amarzouk <amarzouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:14:01 by amarzouk          #+#    #+#             */
-/*   Updated: 2024/02/11 18:45:27 by ayman_marzo      ###   ########.fr       */
+/*   Updated: 2024/02/12 17:40:03 by amarzouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	create_thread(t_philo *philos, t_program *data)
+int	create_thread(t_philo *philos, t_program *data)
 {
 	int	i;
 
@@ -21,12 +21,13 @@ void	create_thread(t_philo *philos, t_program *data)
 	while (i < philos->params->philo_count)
 	{
 		if (pthread_create(&philos[i].thread, NULL, &routine, &philos[i]))
-			destroy(data);
+			return (destroy(data), 1);
 		i++;
 	}
+	return (0);
 }
 
-void	join_thread(t_philo *philos, t_program *data)
+int	join_thread(t_philo *philos, t_program *data)
 {
 	int	i;
 
@@ -34,30 +35,40 @@ void	join_thread(t_philo *philos, t_program *data)
 	while (i < philos->params->philo_count)
 	{
 		if (pthread_join(philos[i].thread, NULL))
-			destroy(data);
+			return (destroy(data), 1);
 		i++;
 	}
+	return (0);
 }
 
-void	destroy(t_program *program)
+int	destroy(t_program *program)
 {
 	int	i;
 
 	i = 0;
 	while (i < program->params.philo_count)
 	{
-		pthread_mutex_destroy(&program->forks[i]);
+		if (pthread_mutex_destroy(&program->forks[i]))
+			return (ft_print("Error destory mutex", 2), 1);
 		i++;
 	}
-	pthread_mutex_destroy(&program->dead_lock);
-	pthread_mutex_destroy(&program->meal_lock);
-	pthread_mutex_destroy(&program->write_lock);
+	if (pthread_mutex_destroy(&program->dead_lock))
+		return (ft_print("Error destory mutex", 2), 1);
+	if (pthread_mutex_destroy(&program->meal_lock))
+		return (ft_print("Error destory mutex", 2), 1);
+	if (pthread_mutex_destroy(&program->write_lock))
+		return (ft_print("Error destory mutex", 2), 1);
+	return (0);
 }
 
-void	init_thread(t_philo *philos, t_program *data)
+int	init_thread(t_philo *philos, t_program *data)
 {
-	create_thread(philos, data);
+	if (create_thread(philos, data))
+		return (ft_print("error creating threads", 2), 1);
 	monitor(philos);
-	join_thread(philos, data);
-	destroy(data);
+	if (join_thread(philos, data))
+		return (ft_print("error joining threads", 2), 1);
+	if (destroy(data))
+		return (1);
+	return (0);
 }

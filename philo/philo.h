@@ -6,7 +6,7 @@
 /*   By: amarzouk <amarzouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 10:00:35 by amarzouk          #+#    #+#             */
-/*   Updated: 2024/02/07 14:44:02 by amarzouk         ###   ########.fr       */
+/*   Updated: 2024/02/12 17:40:23 by amarzouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ int					check_valid_av(char **av);
 long				ft_atol(const char *s);
 void				ft_print(char *s, int fd);
 
-void				init_philo(t_program *data, int ac, char **av);
-void				init_forks(t_program *program, t_params *params);
+int					init_philo(t_program *data, int ac, char **av);
+int					init_forks(t_program *program, t_params *params);
 void				philo_data(t_program *program, t_params *params);
 
 void				*routine(void *arg);
@@ -74,10 +74,10 @@ size_t				get_current(void);
 void				print_message(t_philo *philo, char *message);
 int					dead(t_philo *philo);
 
-void				init_thread(t_philo *philos, t_program *data);
-void				create_thread(t_philo *philos, t_program *data);
-void				join_thread(t_philo *philos, t_program *data);
-void				destroy(t_program *program);
+int					init_thread(t_philo *philos, t_program *data);
+int					create_thread(t_philo *philos, t_program *data);
+int					join_thread(t_philo *philos, t_program *data);
+int					destroy(t_program *program);
 int					ft_usleep(size_t milliseconds, t_philo *philo);
 void				monitor(t_philo *philos);
 #endif

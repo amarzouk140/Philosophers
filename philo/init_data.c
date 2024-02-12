@@ -6,25 +6,30 @@
 /*   By: amarzouk <amarzouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 10:34:54 by amarzouk          #+#    #+#             */
-/*   Updated: 2024/02/12 09:35:22 by amarzouk         ###   ########.fr       */
+/*   Updated: 2024/02/12 17:43:28 by amarzouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	init_forks(t_program *program, t_params *params)
+int	init_forks(t_program *program, t_params *params)
 {
 	int	i;
 
 	i = 0;
-	pthread_mutex_init(&program->dead_lock, NULL);
-	pthread_mutex_init(&program->meal_lock, NULL);
-	pthread_mutex_init(&program->write_lock, NULL);
+	if (pthread_mutex_init(&program->dead_lock, NULL))
+		return (ft_print("Error initiate mutex", 2), 1);
+	if (pthread_mutex_init(&program->meal_lock, NULL))
+		return (ft_print("Error initiate mutex", 2), 1);
+	if (pthread_mutex_init(&program->write_lock, NULL))
+		return (ft_print("Error initiate mutex", 2), 1);
 	while (i < params->philo_count)
 	{
-		pthread_mutex_init(&program->forks[i], NULL);
+		if (pthread_mutex_init(&program->forks[i], NULL))
+			return (ft_print("Error initiate mutex", 2), 1);
 		i++;
 	}
+	return (0);
 }
 
 void	philo_data(t_program *program, t_params *params)
@@ -55,7 +60,7 @@ void	philo_data(t_program *program, t_params *params)
 	}
 }
 
-void	init_philo(t_program *data, int ac, char **av)
+int	init_philo(t_program *data, int ac, char **av)
 {
 	data->params.philo_count = ft_atol(av[1]);
 	data->params.ttd = ft_atol(av[2]);
@@ -66,7 +71,10 @@ void	init_philo(t_program *data, int ac, char **av)
 	else
 		data->params.tte_times = -1;
 	data->dead_flag = 0;
-	init_forks(data, &data->params);
+	if (init_forks(data, &data->params))
+		return (2);
 	philo_data(data, &data->params);
-	init_thread(data->philos, data);
+	if (init_thread(data->philos, data))
+		return (2);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: amarzouk <amarzouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 13:36:27 by amarzouk          #+#    #+#             */
-/*   Updated: 2024/02/07 14:23:13 by amarzouk         ###   ########.fr       */
+/*   Updated: 2024/02/12 17:23:51 by amarzouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	monitor(t_philo *philos)
 	while (1)
 	{
 		usleep(1000);
-		if (check_dead_time(philos) || finish_eating(philos))
+		if (finish_eating(philos) || check_dead_time(philos))
 			break ;
 	}
 }
