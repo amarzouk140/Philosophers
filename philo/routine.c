@@ -6,7 +6,7 @@
 /*   By: amarzouk <amarzouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 13:40:24 by amarzouk          #+#    #+#             */
-/*   Updated: 2024/02/12 18:10:43 by amarzouk         ###   ########.fr       */
+/*   Updated: 2024/02/13 14:14:17 by amarzouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,9 @@ void	*routine(void *arg)
 	while (!dead(philo))
 	{
 		is_eating(philo);
+		print_message(philo, "is sleeping 🛌😴💤");
+		ft_usleep(philo->params->tts, philo);
+		print_message(philo, "is thinking 🧠🤫");
 		pthread_mutex_lock(philo->meal_lock);
 		if (philo->meals_eaten == philo->params->tte_times
 			&& philo->eating == 0)
@@ -77,9 +80,6 @@ void	*routine(void *arg)
 			break ;
 		}
 		pthread_mutex_unlock(philo->meal_lock);
-		print_message(philo, "is sleeping 🛌😴💤");
-		ft_usleep(philo->params->tts, philo);
-		print_message(philo, "is thinking 🧠🤫");
 		if (philo->params->philo_count % 2)
 			ft_usleep(2, philo);
 	}
