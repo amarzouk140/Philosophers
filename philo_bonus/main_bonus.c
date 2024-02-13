@@ -6,19 +6,21 @@
 /*   By: amarzouk <amarzouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 09:26:38 by amarzouk          #+#    #+#             */
-/*   Updated: 2024/02/09 11:20:55 by amarzouk         ###   ########.fr       */
+/*   Updated: 2024/02/13 10:06:23 by amarzouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-int	ft_destroy_sem(t_threads *th)
+void	ft_destroy_sem(t_threads *th)
 {
 	sem_close(th->init);
 	sem_close(th->forks);
 	sem_close(th->death);
+	sem_unlink("/init");
+	sem_unlink("/forks");
+	sem_unlink("/death");
 	free(th->pid);
-	return (0);
 }
 
 int	main(int ac, char **av)

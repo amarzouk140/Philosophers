@@ -6,7 +6,7 @@
 /*   By: amarzouk <amarzouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 10:41:05 by amarzouk          #+#    #+#             */
-/*   Updated: 2024/02/09 11:24:23 by amarzouk         ###   ########.fr       */
+/*   Updated: 2024/02/13 10:17:06 by amarzouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_print_status(t_philo *ph, char *str)
 void	ft_check_forks(t_philo *ph)
 {
 	ft_die(ph);
-	sem_wait(ph->th->forks);
+	sem_wait(ph->th->forks); // Test 4 310 200 100. One philosopher should die.
 	ft_die(ph);
 	ft_print_status(ph, "has taken a fork 🍴");
 	ft_die(ph);

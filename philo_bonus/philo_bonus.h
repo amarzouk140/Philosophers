@@ -6,7 +6,7 @@
 /*   By: amarzouk <amarzouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 09:27:20 by amarzouk          #+#    #+#             */
-/*   Updated: 2024/02/09 10:58:46 by amarzouk         ###   ########.fr       */
+/*   Updated: 2024/02/13 09:45:17 by amarzouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int					ft_die(t_philo *ph);
 void				ft_caseof1(t_philo *ph);
 void				ft_kill_them_all(t_philo *ph);
 
-int					ft_destroy_sem(t_threads *th);
+void				ft_destroy_sem(t_threads *th);
 void				ft_print_status(t_philo *ph, char *str);
 
 #endif
