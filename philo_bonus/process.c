@@ -6,7 +6,7 @@
 /*   By: amarzouk <amarzouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 10:00:20 by amarzouk          #+#    #+#             */
-/*   Updated: 2024/02/14 13:34:33 by amarzouk         ###   ########.fr       */
+/*   Updated: 2024/02/14 13:40:29 by amarzouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 
 void	ft_caseof1(t_philo *ph)
 {
+	sem_wait(ph->th->forks);
+	gettimeofday(&ph->t_born, NULL);
+	printf("%d %d has taken a fork 🍴\n", get_time_diff(ph->t_born), ph->id);
+	ft_usleep(ph, ph->th->t_eat);
+	sem_post(ph->th->forks);
 	gettimeofday(&ph->t_born, NULL);
 	ft_usleep(ph, ph->th->t_die);
 	printf("%d %d died 💀\n", get_time_diff(ph->t_born), ph->id);
