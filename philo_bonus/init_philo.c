@@ -6,7 +6,7 @@
 /*   By: amarzouk <amarzouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 09:45:15 by amarzouk          #+#    #+#             */
-/*   Updated: 2024/02/14 13:36:52 by amarzouk         ###   ########.fr       */
+/*   Updated: 2024/02/14 16:21:51 by amarzouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@ void	init_th(t_threads *th, char **av)
 	th->t_die = ft_atol(av[2]);
 	th->t_eat = ft_atol(av[3]);
 	th->t_sleep = ft_atol(av[4]);
+	th->ate = 0;
+	if (av[5])
+		th->meals_to_eat = ft_atol(av[5]);
+	else
+		th->meals_to_eat = -1;
 	th->died = 0;
 	th->pid = malloc((sizeof(pid_t)) * (th->philos_count));
 	if (!th->pid)
@@ -34,18 +39,22 @@ void	init_th(t_threads *th, char **av)
 	th->death = sem_open("/death", O_CREAT | O_EXCL, 0644, 1);
 	if (th->death == SEM_FAILED)
 		exit_errors("sem_open death");
+	th->meal= sem_open("/meal", O_CREAT | O_EXCL, 0644, 1);
+	
 }
 
 void	init_ph(t_philo *ph, t_threads *th, int ac, char **av)
 {
+	(void)ac;
+	(void)av;
 	ph->id = 0;
 	ph->th = th;
 	ph->stamina = th->t_die;
 	ph->t_last_meal = 0;
-	if (ac == 6)
-		ph->meals_to_eat = ft_atol(av[5]);
-	else
-		ph->meals_to_eat = -1;
+	// if (ac == 6)
+	// 	ph->meals_to_eat = ft_atol(av[5]);
+	// else
+	// 	ph->meals_to_eat = -1;
 }
 
 void	init_structs(t_threads *th, t_philo *ph, int ac, char **av)

@@ -6,7 +6,7 @@
 /*   By: amarzouk <amarzouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 10:00:20 by amarzouk          #+#    #+#             */
-/*   Updated: 2024/02/14 13:40:29 by amarzouk         ###   ########.fr       */
+/*   Updated: 2024/02/14 17:05:15 by amarzouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,17 @@ void	ft_caseof1(t_philo *ph)
 	printf("%d %d died 💀\n", get_time_diff(ph->t_born), ph->id);
 }
 
-int	ft_odd_pair(t_philo *ph)
-{
-	static int	i;
+// int	ft_odd_pair(t_philo *ph)
+// {
+// 	// static int	i = 0;
 
-	while (i++ < ph->th->philos_count)
-		usleep(50);
-	gettimeofday(&ph->t_born, NULL);
-	if (ph->id % 2 == 0)
-		ft_usleep(ph, 50);
-	return (1);
-}
+// 	// while (i++ < ph->th->philos_count)
+// 	// 	usleep(50);
+// 	if (ph.id % 2 == 0)
+// 		ft_usleep(&ph, 50);
+// 	gettimeofday(&ph->t_born, NULL);
+// 	return (1);
+// }
 
 void	*routine(void *arg)
 {
@@ -44,20 +44,29 @@ void	*routine(void *arg)
 	sem_post(ph.th->init);
 	if (ph.th->philos_count == 1)
 		return (ft_caseof1(&ph), NULL);
-	else
-		ft_odd_pair(&ph);
-	while (ph.meals_to_eat)
+	if (ph.id % 2 == 0)
+		ft_usleep(&ph, 50);
+	gettimeofday(&ph.t_born, NULL);
+	while (!ft_die(&ph))
 	{
-		if (ft_die(&ph))
-			break ;
-		ft_check_forks(&ph);
+		sem_wait(ph.th->forks);
+		ft_print_status(&ph, "has taken a fork 🍴");
+		sem_wait(ph.th->forks);
+		ft_print_status(&ph, "has taken a fork 🍴");
+		ft_print_status(&ph, "is eating 🍽️");
+		ft_usleep(&ph, ph.th->t_eat);
+		ph.t_last_meal = get_time_diff(ph.t_born);
+		sem_post(ph.th->forks);
+		sem_post(ph.th->forks);
 		ft_print_status(&ph, "is sleeping 🛌😴💤");
-		if (ft_die(&ph))
-			break ;
 		ft_usleep(&ph, ph.th->t_sleep);
 		ft_print_status(&ph, "is thinking 🧠🤫");
-		if (ft_die(&ph))
-			break ;
+		sem_wait(ph.th->meal);
+		ph.th->ate++;
+		sem_post(ph.th->meal);
+		// ft_check_forks(&ph);
+		// ft_usleep(&ph, ph.th->t_sleep);
+
 	}
 	return (NULL);
 }
