@@ -6,7 +6,7 @@
 /*   By: amarzouk <amarzouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 09:27:20 by amarzouk          #+#    #+#             */
-/*   Updated: 2024/02/13 09:45:17 by amarzouk         ###   ########.fr       */
+/*   Updated: 2024/02/14 09:56:12 by amarzouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,13 @@ typedef struct s_threads
 	sem_t			*init;
 	sem_t			*forks;
 	sem_t			*death;
+	sem_t			*forks_counter;
 }					t_threads;
 
 typedef struct s_philosopher
 {
 	int				id;
-	int				meals;
+	int				meals_to_eat;
 	int				t_last_meal;
 	int				stamina;
 	struct timeval	t_born;

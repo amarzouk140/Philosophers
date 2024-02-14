@@ -6,7 +6,7 @@
 /*   By: amarzouk <amarzouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 10:41:05 by amarzouk          #+#    #+#             */
-/*   Updated: 2024/02/13 10:41:35 by amarzouk         ###   ########.fr       */
+/*   Updated: 2024/02/14 10:02:39 by amarzouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_print_status(t_philo *ph, char *str)
 {
-	if (ph->th->died == 1 && ph->meals == 0)
+	if (ph->th->died == 1 && ph->meals_to_eat == 0)
 		exit(1);
 	printf("%d %d %s\n", get_time_diff(ph->t_born), ph->id, str);
 }
@@ -40,13 +40,13 @@ void	ft_eat(t_philo *ph)
 	ft_print_status(ph, "is eating 🍽️");
 	ft_usleep(ph, ph->th->t_eat);
 	ph->t_last_meal = get_time_diff(ph->t_born);
-	if (ph->meals > 0)
-		ph->meals--;
+	if (ph->meals_to_eat > 0)
+		ph->meals_to_eat--;
 }
 
 int	ft_die(t_philo *ph)
 {
-	if (ph->th->died == 1 || ph->meals == 0)
+	if (ph->th->died == 1 || ph->meals_to_eat == 0)
 		exit(1);
 	sem_wait(ph->th->death);
 	if (ph->stamina < get_time_diff(ph->t_born) - ph->t_last_meal

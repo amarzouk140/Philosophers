@@ -6,7 +6,7 @@
 /*   By: amarzouk <amarzouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 09:45:15 by amarzouk          #+#    #+#             */
-/*   Updated: 2024/02/13 09:52:28 by amarzouk         ###   ########.fr       */
+/*   Updated: 2024/02/14 10:01:47 by amarzouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,18 @@ void	init_th(t_threads *th, char **av)
 	th->pid = malloc((sizeof(pid_t)) * (th->philos_count));
 	if (!th->pid)
 		exit_errors("pid malloc failed\n");
-	sem_unlink("/init");
+	if (sem_unlink("/init"))
+		exit_errors("sem_unlink init");
 	th->init = sem_open("/init", O_CREAT | O_EXCL, 0644, 1);
 	if (th->init == SEM_FAILED)
 		exit_errors("sem_open init");
-	sem_unlink("/forks");
+	if (sem_unlink("/forks"))
+		exit_errors("sem_unlink forks");
 	th->forks = sem_open("/forks", O_CREAT | O_EXCL, 0644, th->philos_count);
 	if (th->forks == SEM_FAILED)
 		exit_errors("sem_open forks");
-	sem_unlink("/death");
+	if (sem_unlink("/death"))
+		exit_errors("sem_unlink death");
 	th->death = sem_open("/death", O_CREAT | O_EXCL, 0644, 1);
 	if (th->death == SEM_FAILED)
 		exit_errors("sem_open death");
@@ -43,9 +46,9 @@ void	init_ph(t_philo *ph, t_threads *th, int ac, char **av)
 	ph->stamina = th->t_die;
 	ph->t_last_meal = 0;
 	if (ac == 6)
-		ph->meals = ft_atol(av[5]);
+		ph->meals_to_eat = ft_atol(av[5]);
 	else
-		ph->meals = -1;
+		ph->meals_to_eat = -1;
 }
 
 void	init_structs(t_threads *th, t_philo *ph, int ac, char **av)

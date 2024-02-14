@@ -6,7 +6,7 @@
 /*   By: amarzouk <amarzouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 10:00:20 by amarzouk          #+#    #+#             */
-/*   Updated: 2024/02/09 10:56:47 by amarzouk         ###   ########.fr       */
+/*   Updated: 2024/02/14 13:34:33 by amarzouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	*routine(void *arg)
 		return (ft_caseof1(&ph), NULL);
 	else
 		ft_odd_pair(&ph);
-	while (ph.meals)
+	while (ph.meals_to_eat)
 	{
 		if (ft_die(&ph))
 			break ;
