@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarzouk <amarzouk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayman_marzouk <ayman_marzouk@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 16:37:53 by ayman_marzo       #+#    #+#             */
-/*   Updated: 2024/02/14 18:14:36 by amarzouk         ###   ########.fr       */
+/*   Updated: 2024/02/14 19:29:24 by ayman_marzo      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
+
+void	ft_destroy_sem(t_philo *th)
+{
+	sem_close(th->dead);
+	sem_close(th->forks);
+	sem_close(th->write_lock);
+	sem_unlink("dead");
+	sem_unlink("forks");
+	sem_unlink("write_lock");
+}
 
 void	monitor_process(t_philo *philo, pid_t *pid)
 {
@@ -40,7 +50,10 @@ int	philo_init(t_philo *philo)
 	philo->last_meal = get_current();
 	philo->meals_eaten = 0;
 	if (pthread_create(&philo->thread, NULL, &monitor, philo))
-		return (1);
+	{
+		ft_destroy_sem(philo);
+		exit_errors("pthread_create failed");
+	}
 	pthread_detach(philo->thread);
 	philo_rout(philo);
 	return (0);
@@ -57,7 +70,10 @@ int	philo_create(t_philo *philo)
 	{
 		pid[i] = fork();
 		if (pid[i] < 0)
-			return (1);
+		{
+			ft_destroy_sem(philo);
+			exit_errors("fork failed");
+		}
 		else if (pid[i] == 0)
 		{
 			philo->id = i;
@@ -84,5 +100,6 @@ int	main(int ac, char **av)
 		return (1);
 	set_semaphores(&philo);
 	philo_create(&philo);
+	ft_destroy_sem(&philo);
 	return (0);
 }

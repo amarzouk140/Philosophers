@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   status.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarzouk <amarzouk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayman_marzouk <ayman_marzouk@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 16:34:14 by ayman_marzo       #+#    #+#             */
-/*   Updated: 2024/02/14 18:20:04 by amarzouk         ###   ########.fr       */
+/*   Updated: 2024/02/14 19:33:44 by ayman_marzo      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ void	philo_rout(t_philo *philo)
 		{
 			ft_usleep(philo->ttd);
 			sem_post(philo->forks);
-			return (print_action(philo, "died 💀"), exit(0));
+			ft_destroy_sem(philo);
+			return (print_action(philo, "died 💀"), exit(0)); // to debug
 		}
 		sem_wait(philo->forks);
 		print_action(philo, "has taken a fork 🍴");
@@ -42,7 +43,7 @@ void	philo_rout(t_philo *philo)
 		sem_post(philo->forks);
 		sleep_think(philo);
 		if (philo->eat_times != -1 && philo->meals_eaten >= philo->eat_times)
-			exit(0);
+			return (exit(0));
 		print_action(philo, "is thinking 🧠🤫");
 	}
 }

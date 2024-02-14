@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amarzouk <amarzouk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ayman_marzouk <ayman_marzouk@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 16:26:29 by ayman_marzo       #+#    #+#             */
-/*   Updated: 2024/02/14 18:21:12 by amarzouk         ###   ########.fr       */
+/*   Updated: 2024/02/14 19:31:31 by ayman_marzo      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ int				check_valid_av(t_philo *philo, char **av);
 int				check_empty_av(char **av);
 long			ft_atol(const char *s);
 void			ft_print(char *s, int fd);
+void	exit_errors(char *s);
+void	ft_destroy_sem(t_philo *th);
 size_t			get_current(void);
 int				ft_usleep(size_t ms);
 void			set_semaphores(t_philo *philo);
