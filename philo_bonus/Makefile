@@ -5,33 +5,32 @@
 #                                                     +:+ +:+         +:+      #
 #    By: amarzouk <amarzouk@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/02/09 11:01:48 by amarzouk          #+#    #+#              #
-#    Updated: 2024/02/09 11:09:06 by amarzouk         ###   ########.fr        #
+#    Created: 2024/02/03 16:40:29 by ayman_marzo       #+#    #+#              #
+#    Updated: 2024/02/15 14:43:57 by amarzouk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo_bonus
 
-SRC =	action.c init_philo.c main_bonus.c parsing_bonus.c process.c time.c
+SRCS = main.c parsing.c utils.c status.c semaphore.c
 
-CC = cc -pthread
-FLAGS = -Wall -Wextra -Werror
+OBJ = $(SRCS:.c=.o)
 
-all : $(NAME)
+CC = cc
+CFLAGS = -Wall -Wextra -Werror -pthread -g
 
-$(NAME) : $(SRC)
-	@$(CC) $(FLAGS) $(SRC) -o $(NAME)
-	@ echo "philo_bonus compiled 🦧"
+all: $(NAME) clean
 
-bonus: all
+$(NAME): $(OBJ)
+		 $(CC) $(CFLAGS) -o $(NAME) $(OBJ)
+		 @echo Program $(NAME) is ready!! 🚀
 
 clean:
-	@rm -rf philo_bonus
+		rm -rf $(OBJ)
+		@echo Object files successfully deleted! 🧹
 
-fclean:
-	@rm -rf philo_bonus
-	@echo "philo_bonus cleaned 🤘🏻"
+fclean: clean
+		rm -f $(NAME)
+		@echo Done!! 🎉
 
 re: fclean all
-
-.PHONY : all bonus clean fclean re

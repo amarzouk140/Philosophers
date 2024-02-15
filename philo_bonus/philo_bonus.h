@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: amarzouk <amarzouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/09 09:27:20 by amarzouk          #+#    #+#             */
-/*   Updated: 2024/02/14 16:15:37 by amarzouk         ###   ########.fr       */
+/*   Created: 2024/02/03 16:26:29 by ayman_marzo       #+#    #+#             */
+/*   Updated: 2024/02/15 14:41:10 by amarzouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,53 +20,52 @@
 # include <signal.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <string.h>
 # include <sys/time.h>
+# include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
 
-typedef struct s_threads
+# define PHILO_MAX 200
+
+typedef struct s_philo
 {
-	int				philos_count;
-	int				t_die;
-	int				t_eat;
-	int				t_sleep;
-	int				died;
-	int				meals_to_eat;
-	int				ate;
-	pid_t			*pid;
-	sem_t			*init;
-	sem_t			*forks;
-	sem_t			*death;
-	sem_t			*meal;
-}					t_threads;
+	int			id;
+	int			philo_n;
+	int			eat_times;
+	int			meals_eaten;
 
-typedef struct s_philosopher
-{
-	int				id;
-	int				t_last_meal;
-	int				stamina;
-	struct timeval	t_born;
-	t_threads		*th;
-}					t_philo;
+	pthread_t	thread;
+	size_t		tte;
+	size_t		tts;
+	size_t		ttd;
 
-void				ft_print(char *s, int fd);
-long				ft_atol(const char *s);
-int					check_valid_av(char **av);
-int					check_empty_av(char **av);
-void				exit_errors(char *s);
+	size_t		start_time;
+	size_t		last_meal;
 
-void				init_structs(t_threads *th, t_philo *ph, int ac, char **av);
-void				ft_create_process(t_philo *ph);
+	sem_t		*forks;
+	sem_t		*foks;
+	sem_t		*dead;
+	sem_t		*write_lock;
+	sem_t		*meals_lock;
+	sem_t		*read_lock;
 
-void				ft_usleep(t_philo *ph, int time);
-int					get_time_diff(struct timeval ta);
-void				ft_check_forks(t_philo *ph);
-void				ft_eat(t_philo *ph);
-int					ft_die(t_philo *ph);
-void				ft_caseof1(t_philo *ph);
-void				ft_kill_them_all(t_philo *ph);
+}				t_philo;
 
-void				ft_destroy_sem(t_threads *th);
-void				ft_print_status(t_philo *ph, char *str);
+int				check_valid_av(t_philo *philo, char **av);
+int				check_empty_av(char **av);
+long			ft_atol(const char *s);
+void			ft_print(char *s, int fd);
+void			exit_errors(char *s);
+void			ft_destroy_sem(t_philo *th);
+size_t			get_current(void);
+int				ft_usleep(size_t ms);
+void			set_semaphores(t_philo *philo);
+void			ft_sem_unlink(void);
+
+void			print_action(t_philo *philo, char *action);
+void			*monitor(void *p);
+
+void			philo_rout(t_philo *philo);
 
 #endif
