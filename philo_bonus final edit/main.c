@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayman_marzouk <ayman_marzouk@student.42    +#+  +:+       +#+        */
+/*   By: amarzouk <amarzouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 16:37:53 by ayman_marzo       #+#    #+#             */
-/*   Updated: 2024/02/14 19:29:24 by ayman_marzo      ###   ########.fr       */
+/*   Updated: 2024/02/15 08:09:58 by amarzouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,13 @@ int	philo_create(t_philo *philo)
 
 	i = 0;
 	philo->start_time = get_current();
+	philo->id = 0;
 	while (i < philo->philo_n)
 	{
 		pid[i] = fork();
 		if (pid[i] < 0)
 		{
-			ft_destroy_sem(philo);
-			exit_errors("fork failed");
+			return (ft_destroy_sem(philo), exit_errors("fork failed"), 1);
 		}
 		else if (pid[i] == 0)
 		{

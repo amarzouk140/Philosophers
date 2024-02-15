@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   status.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayman_marzouk <ayman_marzouk@student.42    +#+  +:+       +#+        */
+/*   By: amarzouk <amarzouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 16:34:14 by ayman_marzo       #+#    #+#             */
-/*   Updated: 2024/02/14 19:33:44 by ayman_marzo      ###   ########.fr       */
+/*   Updated: 2024/02/15 08:12:04 by amarzouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ void	philo_rout(t_philo *philo)
 		{
 			ft_usleep(philo->ttd);
 			sem_post(philo->forks);
-			ft_destroy_sem(philo);
-			return (print_action(philo, "died 💀"), exit(0)); // to debug
+			return (print_action(philo, "died 💀"), exit(0));
 		}
 		sem_wait(philo->forks);
 		print_action(philo, "has taken a fork 🍴");
