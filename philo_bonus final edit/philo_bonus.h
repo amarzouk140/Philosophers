@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayman_marzouk <ayman_marzouk@student.42    +#+  +:+       +#+        */
+/*   By: amarzouk <amarzouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 16:26:29 by ayman_marzo       #+#    #+#             */
-/*   Updated: 2024/02/14 19:31:31 by ayman_marzo      ###   ########.fr       */
+/*   Updated: 2024/02/15 08:25:27 by amarzouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_philo
 	sem_t		*forks;
 	sem_t		*dead;
 	sem_t		*write_lock;
+	sem_t		*meals_lock;
 
 }				t_philo;
 

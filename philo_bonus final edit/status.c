@@ -6,7 +6,7 @@
 /*   By: amarzouk <amarzouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 16:34:14 by ayman_marzo       #+#    #+#             */
-/*   Updated: 2024/02/15 08:12:04 by amarzouk         ###   ########.fr       */
+/*   Updated: 2024/02/15 08:35:28 by amarzouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	set_semaphores(t_philo *philo)
 	sem_unlink("forks");
 	sem_unlink("write_lock");
 	sem_unlink("dead");
+	sem_unlink("meals_lock");
 	philo->forks = sem_open("forks", O_CREAT, 0644, philo->philo_n);
 	if (philo->forks == SEM_FAILED)
 		exit_errors("sem_open");
@@ -66,5 +67,8 @@ void	set_semaphores(t_philo *philo)
 		exit_errors("sem_open");
 	philo->dead = sem_open("dead", O_CREAT, 0644, 1);
 	if (philo->dead == SEM_FAILED)
+		exit_errors("sem_open");
+	philo->meals_lock = sem_open("meals_lock", O_CREAT, 0644, 1);
+	if (philo->meals_lock == SEM_FAILED)
 		exit_errors("sem_open");
 }
