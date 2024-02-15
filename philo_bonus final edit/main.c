@@ -6,7 +6,7 @@
 /*   By: amarzouk <amarzouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 16:37:53 by ayman_marzo       #+#    #+#             */
-/*   Updated: 2024/02/15 08:28:42 by amarzouk         ###   ########.fr       */
+/*   Updated: 2024/02/15 09:06:39 by amarzouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,12 @@ void	ft_destroy_sem(t_philo *th)
 	sem_close(th->forks);
 	sem_close(th->write_lock);
 	sem_close(th->meals_lock);
+	sem_close(th->read_lock);
 	sem_unlink("dead");
 	sem_unlink("forks");
 	sem_unlink("write_lock");
 	sem_unlink("meals_lock");
+	sem_unlink("read_lock");
 }
 
 void	monitor_process(t_philo *philo, pid_t *pid)

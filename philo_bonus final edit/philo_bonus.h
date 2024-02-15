@@ -6,7 +6,7 @@
 /*   By: amarzouk <amarzouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 16:26:29 by ayman_marzo       #+#    #+#             */
-/*   Updated: 2024/02/15 08:25:27 by amarzouk         ###   ########.fr       */
+/*   Updated: 2024/02/15 09:04:35 by amarzouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_philo
 	sem_t		*dead;
 	sem_t		*write_lock;
 	sem_t		*meals_lock;
+	sem_t		*read_lock;
 
 }				t_philo;
 
