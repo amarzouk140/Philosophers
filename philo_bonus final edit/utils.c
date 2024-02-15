@@ -6,7 +6,7 @@
 /*   By: amarzouk <amarzouk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 16:33:16 by ayman_marzo       #+#    #+#             */
-/*   Updated: 2024/02/15 09:22:33 by amarzouk         ###   ########.fr       */
+/*   Updated: 2024/02/15 09:34:07 by amarzouk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,19 +46,13 @@ void	*monitor(void *p)
 	while (1)
 	{
 		sem_wait(philo->dead);
-		sem_wait(philo->meals_lock);
 		if (get_current() - philo->last_meal >= philo->ttd)
 		{
-			sem_wait(philo->write_lock);
 			print_action(philo, "died 💀");
-			sem_post(philo->write_lock);
-			sem_post(philo->dead);
-			sem_post(philo->meals_lock);
 			exit(1);
 		}
 		sem_post(philo->dead);
-		sem_post(philo->meals_lock);
-		ft_usleep(500);
+		usleep(100);
 	}
 }
 
