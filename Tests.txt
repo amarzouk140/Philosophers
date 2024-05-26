@@ -7,7 +7,7 @@ Top | grep program name
 
 valgrind --tool=helgrind -s   ./philo 5 800 200 200 2
 
-[./philo 2 810 405 405 2], sometimes it is printing a philo died
+[./philo 2 810 405 405 2]
 
 Test 4 310 200 100. One philosopher should die.
 
