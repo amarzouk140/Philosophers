@@ -9,9 +9,7 @@ The Philosophers project is a concurrent programming exercise designed to illust
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Project Structure](#project-structure)
-- [Contributing](#contributing)
-- [License](#license)
+
 
 ## Introduction
 
