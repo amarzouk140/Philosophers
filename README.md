@@ -76,7 +76,11 @@ To run the mandatory part of the project:
 ```
 ## Arguments
 1- <number_of_philosophers>: The number of philosophers and also the number of forks.
+
 2- <time_to_die>: Time in milliseconds a philosopher can live without eating.
+
 3- <time_to_eat>: Time in milliseconds it takes for a philosopher to eat.
+
 4- <time_to_sleep>: Time in milliseconds a philosopher will sleep.
+
 5- [number_of_times_each_philosopher_must_eat]: (Optional) The number of times each philosopher must eat. If not specified, the simulation will stop when a philosopher dies.
