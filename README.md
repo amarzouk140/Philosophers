@@ -59,3 +59,24 @@ To run the mandatory part of the project:
 
 ```sh
 ./philo <number_of_philosophers> <time_to_die> <time_to_eat> <time_to_sleep> [number_of_times_each_philosopher_must_eat]
+```
+
+#### example:
+
+```sh
+./philo 5 800 200 200 2
+
+```
+#### Bonus Part
+##### To run the bonus part of the project:
+
+```sh
+./philo_bonus <number_of_philosophers> <time_to_die> <time_to_eat> <time_to_sleep> [number_of_times_each_philosopher_must_eat]
+
+```
+## Arguments
+<number_of_philosophers>: The number of philosophers and also the number of forks.
+<time_to_die>: Time in milliseconds a philosopher can live without eating.
+<time_to_eat>: Time in milliseconds it takes for a philosopher to eat.
+<time_to_sleep>: Time in milliseconds a philosopher will sleep.
+[number_of_times_each_philosopher_must_eat]: (Optional) The number of times each philosopher must eat. If not specified, the simulation will stop when a philosopher dies.
