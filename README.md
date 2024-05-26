@@ -40,16 +40,16 @@ The Dining Philosophers Problem is a well-known problem in computer science that
 
     ```sh
     git clone https://github.com/amarzouk140/Philosophers.git
-    cd philo 
     ```
 
 2. Compile the project:
 
     ```sh
+    cd philo 
     make
     ```
 
-This will create the `philo` and `philo_bonus` executables for the mandatory and bonus parts, respectively.
+This will create the `philo` or `philo_bonus` executables for the mandatory or bonus parts, respectively.
 
 ## Usage
 
