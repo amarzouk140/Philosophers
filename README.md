@@ -39,8 +39,8 @@ The Dining Philosophers Problem is a well-known problem in computer science that
 1. Clone the repository:
 
     ```sh
-    git clone https://github.com/amarzouk140/philosophers.git
-    cd philosophers
+    git clone https://github.com/amarzouk140/Philosophers.git
+    cd philo 
     ```
 
 2. Compile the project:
